@@ -1,0 +1,35 @@
+
+services:
+
+  exam-sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest 
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Test123@
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+      - 1433
+    networks:
+      - exam-network
+
+  exam-api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=exam-sql,1433;Database=db_exam;User=sa;Password=Test123@;ConnectRetryCount=0; TrustServerCertificate=True
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 8888:8888
+    networks:
+      - exam-network
+    depends_on:
+      - exam-sql
+      
+networks:
+  exam-network:
+    driver: bridge      

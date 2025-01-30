@@ -39,9 +39,6 @@ namespace exam.Services.Migrations
                     PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    Prisutan = table.Column<bool>(type: "bit", nullable: true),
-                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -67,12 +64,12 @@ namespace exam.Services.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "Phone", "Picture", "Prisutan", "RoleId", "Status", "UserName" },
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "Phone", "RoleId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "admin@admin.com", "Admin", "Admin", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061399232", null, null, 1, true, "admin" },
-                    { 2, "uposlenik@uposlenik.com", "Uposlenik", "Uposlenik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061399233", null, null, 2, true, "uposlenik" },
-                    { 3, "korisnik@korisnik.com", "Korisnik", "Korisnik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061222333", null, null, 3, true, "korisnik" }
+                    { 1, "admin@admin.com", "Admin", "Admin", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061399232", 1, "admin" },
+                    { 2, "uposlenik@uposlenik.com", "Uposlenik", "Uposlenik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061399233", 2, "uposlenik" },
+                    { 3, "korisnik@korisnik.com", "Korisnik", "Korisnik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "061222333", 3, "korisnik" }
                 });
 
             migrationBuilder.CreateIndex(

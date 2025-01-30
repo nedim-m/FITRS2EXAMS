@@ -93,17 +93,8 @@ namespace exam.Services.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<bool?>("Prisutan")
-                        .HasColumnType("bit");
-
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -126,7 +117,6 @@ namespace exam.Services.Migrations
                             PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                             Phone = "061399232",
                             RoleId = 1,
-                            Status = true,
                             UserName = "admin"
                         },
                         new
@@ -139,7 +129,6 @@ namespace exam.Services.Migrations
                             PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                             Phone = "061399233",
                             RoleId = 2,
-                            Status = true,
                             UserName = "uposlenik"
                         },
                         new
@@ -152,7 +141,6 @@ namespace exam.Services.Migrations
                             PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                             Phone = "061222333",
                             RoleId = 3,
-                            Status = true,
                             UserName = "korisnik"
                         });
                 });

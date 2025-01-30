@@ -46,7 +46,7 @@ namespace exam.Services.Database
                 PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                 UserName = "admin",
                 Phone = "061399232",
-                Status = true,
+               
                 RoleId = 1,
 
             },
@@ -60,7 +60,7 @@ namespace exam.Services.Database
                 PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                 UserName = "uposlenik",
                 Phone = "061399233",
-                Status = true,
+          
                 RoleId = 2,
 
             },
@@ -74,7 +74,7 @@ namespace exam.Services.Database
                  PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
                  UserName = "korisnik",
                  Phone = "061222333",
-                 Status = true,
+               
                  RoleId = 3,
 
              }

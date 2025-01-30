@@ -13,9 +13,9 @@ public partial class User
     public string PasswordSalt { get; set; } = null!;
     public string UserName { get; set; } = null!;
     public string? Phone { get; set; }
-    public bool Status { get; set; }
-    public bool? Prisutan { get; set; }
-    public byte[]? Picture { get; set; }
+
+
+
     public int RoleId { get; set; }
     public virtual Role Role { get; set; } = null!;
 

@@ -20,9 +20,7 @@ namespace exam.Models.User
 
         public string? Phone { get; set; }
 
-        public bool Status { get; set; }
-
-        public byte[]? Picture { get; set; }
+       
 
         public string Role { get; set; } = string.Empty;
 

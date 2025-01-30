@@ -20,10 +20,10 @@ namespace exam.Models.UserPostRequest
        
         public string Password { get; set; } = null!;
 
-        public bool Status { get; set; }
+
 
         public string ConfrimPassword { get; set; } = null!;
-        public byte[]? Picture { get; set; } 
+
         public int RoleId { get; set; }
 
 

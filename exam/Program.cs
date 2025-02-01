@@ -1,11 +1,11 @@
 using exam.Security;
-using exam.Service.IServices;
-using exam.Service.Services;
 using exam.Services.Database;
+using exam.Services.IServices;
+using exam.Services.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);//ovdje mi baca gresku? zaszto?
 
 // Add services to the container.
 
@@ -31,9 +31,12 @@ builder.Services.AddSwaggerGen(c =>
     } });
 
 });
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IKorisnikService, KorisnikService>();
+builder.Services.AddTransient<IFITPasosService, FITPasosService>();
+builder.Services.AddTransient<IToDo4924Service, ToDo4924Service>();
+builder.Services.AddTransient<IMoodTrackerService, MoodTrackerService>();
 
-builder.Services.AddAutoMapper(typeof(UserService));
+builder.Services.AddAutoMapper(typeof(KorisnikService));
 
 
 

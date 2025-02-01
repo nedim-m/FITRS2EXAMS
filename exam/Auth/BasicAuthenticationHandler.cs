@@ -3,7 +3,8 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using exam.Service.IServices;
+
+using exam.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
@@ -11,11 +12,11 @@ namespace exam.Security
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        IUserService _service;
+        IKorisnikService _service;
 
         [Obsolete]
         public BasicAuthenticationHandler(
-            IUserService service,
+            IKorisnikService service,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
@@ -42,28 +43,28 @@ namespace exam.Security
             var password = credentials[1];
 
             var user = await _service.Login(username, password);
-            
+
 
             if (user == null)
             {
                 return AuthenticateResult.Fail("Incorrect username or password");
             }
-            
-                var claims = new List<Claim>()
+
+            var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name, user.FirstName),
-                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Role)};
+                    new Claim(ClaimTypes.Name, user.Ime),
+                    new Claim(ClaimTypes.NameIdentifier, user.KorisnickoIme),
+                    new Claim(ClaimTypes.Role, user.Uloga)};
 
 
 
-                var identity = new ClaimsIdentity(claims, Scheme.Name);
+            var identity = new ClaimsIdentity(claims, Scheme.Name);
 
-                var principal = new ClaimsPrincipal(identity);
+            var principal = new ClaimsPrincipal(identity);
 
-                var ticket = new AuthenticationTicket(principal, Scheme.Name);
-                return AuthenticateResult.Success(ticket);
-            
+            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+            return AuthenticateResult.Success(ticket);
+
         }
     }
 }

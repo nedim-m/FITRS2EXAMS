@@ -1,4 +1,4 @@
-﻿using exam.Service.Database;
+﻿
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,62 +20,65 @@ namespace exam.Services.Database
         {
 
         }
+ public virtual DbSet<Korisnik> Korisniks { get; set; }
+  public virtual DbSet<Uloga> Ulogas { get; set; }
+    public virtual DbSet<FITPasos> FITPasos { get; set; }
 
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<ToDo4924> ToDo4924s { get; set; }
+    public virtual DbSet<MoodTracker> MoodTrackers { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Role>().HasData(
-            new Role { Id = 1, Name = "Admin", Description="Bog i batina." },
-            new Role { Id = 2, Name = "Uposlenik", Description="Tu i tamo moze nesto." },
-            new Role { Id = 3, Name = "Korisnik", Description="Obicni smrtnik." }
+            modelBuilder.Entity<Uloga>().HasData(
+            new Uloga { UlogaId = 1, Naziv = "Admin", Opis="Bog i batina." },
+            new Uloga { UlogaId = 2, Naziv = "Uposlenik", Opis="Tu i tamo moze nesto." },
+            new Uloga { UlogaId = 3, Naziv = "Korisnik", Opis="Obicni smrtnik." }
 
         );
 
-            modelBuilder.Entity<User>().HasData(new User
+            modelBuilder.Entity<Korisnik>().HasData(new Korisnik
             {
-                Id = 1,
-                FirstName = "Admin",
-                LastName = "Admin",
+                KorisnikId = 1,
+                Ime = "Admin",
+                Prezime = "Admin",
                 Email = "admin@admin.com",
                 PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
                 PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
-                UserName = "admin",
-                Phone = "061399232",
-               
-                RoleId = 1,
+                KorisnickoIme = "admin",
+                Telefon = "061399232",
+
+                UlogaId = 1,
 
             },
-            new User
+            new Korisnik
             {
-                Id = 2,
-                FirstName = "Uposlenik",
-                LastName = "Uposlenik",
+                KorisnikId = 2,
+                Ime = "Uposlenik",
+                Prezime = "Uposlenik",
                 Email = "uposlenik@uposlenik.com",
                 PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
                 PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
-                UserName = "uposlenik",
-                Phone = "061399233",
-          
-                RoleId = 2,
+                KorisnickoIme = "uposlenik",
+                Telefon = "061399233",
+
+                UlogaId = 2,
 
             },
-             new User
+             new Korisnik
              {
-                 Id = 3,
-                 FirstName = "Korisnik",
-                 LastName = "Korisnik",
+                 KorisnikId = 3,
+                 Ime = "Korisnik",
+                 Prezime = "Korisnik",
                  Email = "korisnik@korisnik.com",
                  PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
                  PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
-                 UserName = "korisnik",
-                 Phone = "061222333",
-               
-                 RoleId = 3,
+                 KorisnickoIme = "korisnik",
+                 Telefon = "061222333",
+
+                 UlogaId = 3,
 
              }
 

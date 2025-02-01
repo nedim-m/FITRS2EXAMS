@@ -1,12 +1,12 @@
-﻿using exam.Model;
-using exam.Service.IServices;
+﻿
+using exam.Model;
+using exam.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace exam.Controllers
 {
-
     [ApiController]
     [Route("[controller]")]
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
@@ -20,14 +20,12 @@ namespace exam.Controllers
             _service = service;
         }
 
-
         [HttpGet()]
-        public virtual async Task<PagedResult<T>> Get([FromQuery] TSearch? search = null)
+        public virtual async Task<PagedResult<T>> Get([FromQuery] TSearch search)
         {
             return await _service.Get(search);
         }
 
-        
         [HttpGet("{id}")]
         public virtual async Task<T> GetById(int id)
         {

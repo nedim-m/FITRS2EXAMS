@@ -1,0 +1,182 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace exam.Services.Migrations
+{
+    /// <inheritdoc />
+    public partial class Init : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Ulogas",
+                columns: table => new
+                {
+                    UlogaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Opis = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ulogas", x => x.UlogaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Korisniks",
+                columns: table => new
+                {
+                    KorisnikId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prezime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KorisnickoIme = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UlogaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Korisniks", x => x.KorisnikId);
+                    table.ForeignKey(
+                        name: "FK_Korisniks_Ulogas_UlogaId",
+                        column: x => x.UlogaId,
+                        principalTable: "Ulogas",
+                        principalColumn: "UlogaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FITPasos",
+                columns: table => new
+                {
+                    FITPasosId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Aktivan = table.Column<bool>(type: "bit", nullable: false),
+                    DatumVazenja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KorisnikId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FITPasos", x => x.FITPasosId);
+                    table.ForeignKey(
+                        name: "FK_FITPasos_Korisniks_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisniks",
+                        principalColumn: "KorisnikId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MoodTrackers",
+                columns: table => new
+                {
+                    MoodTrackerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VrijednostRaspolozenja = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OpisRaspolozenja = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DatumEvidencije = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KorisnikId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoodTrackers", x => x.MoodTrackerId);
+                    table.ForeignKey(
+                        name: "FK_MoodTrackers_Korisniks_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisniks",
+                        principalColumn: "KorisnikId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ToDo4924s",
+                columns: table => new
+                {
+                    ToDo4924Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KorisnikId = table.Column<int>(type: "int", nullable: false),
+                    NazivAktivnosti = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OpisAktivnosti = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KrajnjiRok = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatusAktivnosti = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDo4924s", x => x.ToDo4924Id);
+                    table.ForeignKey(
+                        name: "FK_ToDo4924s_Korisniks_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisniks",
+                        principalColumn: "KorisnikId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ulogas",
+                columns: new[] { "UlogaId", "Naziv", "Opis" },
+                values: new object[,]
+                {
+                    { 1, "Admin", "Bog i batina." },
+                    { 2, "Uposlenik", "Tu i tamo moze nesto." },
+                    { 3, "Korisnik", "Obicni smrtnik." }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Korisniks",
+                columns: new[] { "KorisnikId", "Email", "Ime", "KorisnickoIme", "PasswordHash", "PasswordSalt", "Prezime", "Telefon", "UlogaId" },
+                values: new object[,]
+                {
+                    { 1, "admin@admin.com", "Admin", "admin", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Admin", "061399232", 1 },
+                    { 2, "uposlenik@uposlenik.com", "Uposlenik", "uposlenik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Uposlenik", "061399233", 2 },
+                    { 3, "korisnik@korisnik.com", "Korisnik", "korisnik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Korisnik", "061222333", 3 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FITPasos_KorisnikId",
+                table: "FITPasos",
+                column: "KorisnikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Korisniks_UlogaId",
+                table: "Korisniks",
+                column: "UlogaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoodTrackers_KorisnikId",
+                table: "MoodTrackers",
+                column: "KorisnikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDo4924s_KorisnikId",
+                table: "ToDo4924s",
+                column: "KorisnikId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "FITPasos");
+
+            migrationBuilder.DropTable(
+                name: "MoodTrackers");
+
+            migrationBuilder.DropTable(
+                name: "ToDo4924s");
+
+            migrationBuilder.DropTable(
+                name: "Korisniks");
+
+            migrationBuilder.DropTable(
+                name: "Ulogas");
+        }
+    }
+}

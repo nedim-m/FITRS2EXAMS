@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace exam.Service.IServices
+
+namespace exam.Services.IServices
 {
-    public interface ICrudService<T, TSearch, TInsert, TUpdate> : IService<T, TSearch> where T : class where TSearch : class where TInsert : class where TUpdate : class
+    public interface ICRUDService<T, TSearch, TInsert, TUpdate> : IService<T, TSearch> where TSearch : class
     {
         Task<T> Insert(TInsert insert);
+
         Task<T> Update(int id, TUpdate update);
+
+        Task Delete(int id);
     }
 }

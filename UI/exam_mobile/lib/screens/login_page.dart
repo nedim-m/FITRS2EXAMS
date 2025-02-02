@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:exam_mobile/providers/user_provider.dart';
+import 'package:exam_mobile/providers/korisnik_provider.dart';
+import 'package:exam_mobile/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final UserProvider _userProvider = UserProvider();
+  final KorisnikProvider _userProvider = KorisnikProvider();
 
   Future<void> _login() async {
     final user = await _userProvider.authenticate(
@@ -24,6 +25,10 @@ class _LoginPageState extends State<LoginPage> {
     if (user != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login Successful!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

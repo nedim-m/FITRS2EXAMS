@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
@@ -79,7 +81,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      return fromJson(data) as T;
+      return fromJson(data);
     } else {
       throw Exception("Exception... handle this gracefully");
     }
@@ -187,7 +189,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
         }
         query += '$prefix$key=$encoded';
       } else if (value is DateTime) {
-        query += '$prefix$key=${(value as DateTime).toIso8601String()}';
+        query += '$prefix$key=${(value).toIso8601String()}';
       } else if (value is List || value is Map) {
         if (value is List) value = value.asMap();
         value.forEach((k, v) {

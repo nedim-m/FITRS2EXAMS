@@ -10,5 +10,7 @@ namespace exam.Model.FITpasos
     {
         public string? ImePrezime { get; set; }
         public DateTime? Datum { get; set; }
+        public DateTime? DatumOd { get; set; }
+        public DateTime? DatumDo { get; set; }
     }
 }

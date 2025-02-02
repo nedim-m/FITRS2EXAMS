@@ -97,6 +97,7 @@ class _FitPasosScreenState extends State<FitPasosScreen> {
                   ),
                   TextField(
                     decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                       labelText: 'Pretraga po imenu/prezimenu',
                     ),
                     onChanged: (value) {

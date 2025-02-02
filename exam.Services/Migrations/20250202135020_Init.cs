@@ -136,7 +136,43 @@ namespace exam.Services.Migrations
                 {
                     { 1, "admin@admin.com", "Admin", "admin", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Admin", "061399232", 1 },
                     { 2, "uposlenik@uposlenik.com", "Uposlenik", "uposlenik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Uposlenik", "061399233", 2 },
-                    { 3, "korisnik@korisnik.com", "Korisnik", "korisnik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Korisnik", "061222333", 3 }
+                    { 3, "korisnik@korisnik.com", "Korisnik", "korisnik", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Korisnik", "061222333", 3 },
+                    { 4, "marko.markovic@example.com", "Marko", "marko", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Marković", "061111111", 3 },
+                    { 5, "ivana.ivankovic@example.com", "Ivana", "ivana", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Ivanković", "062222222", 3 },
+                    { 6, "petar.petrovic@example.com", "Petar", "petar", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Petrović", "063333333", 3 },
+                    { 7, "ana.anic@example.com", "Ana", "ana", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Anić", "064444444", 3 },
+                    { 8, "nikola.nikolic@example.com", "Nikola", "nikola", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Nikolić", "065555555", 3 },
+                    { 9, "jelena.jelenkovic@example.com", "Jelena", "jelena", "C5fuEDcAxNxDuUXqOJCU9DYfLpM=", "qQ0nSvQ4rOy3pP/Zi95wIw==", "Jelenković", "066666666", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FITPasos",
+                columns: new[] { "FITPasosId", "Aktivan", "DatumVazenja", "KorisnikId" },
+                values: new object[,]
+                {
+                    { 1, true, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5 },
+                    { 2, false, new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6 },
+                    { 3, true, new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 7 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MoodTrackers",
+                columns: new[] { "MoodTrackerId", "DatumEvidencije", "KorisnikId", "OpisRaspolozenja", "VrijednostRaspolozenja" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Mnogo sretan", "Sretan" },
+                    { 2, new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Mnogo tuzan", "Tuzan" },
+                    { 3, new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Pod velikim stresom", "Pod_Stresom" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ToDo4924s",
+                columns: new[] { "ToDo4924Id", "KorisnikId", "KrajnjiRok", "NazivAktivnosti", "OpisAktivnosti", "StatusAktivnosti" },
+                values: new object[,]
+                {
+                    { 1, 4, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Neka aktivnost", "Opis neke aktivnosti", "U_Toku" },
+                    { 2, 5, new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Neka aktivnost dva", "Opis neke aktivnosti dva", "Istekla" },
+                    { 3, 6, new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Neka aktivnost tri", "Opis neke aktivnosti tri", "Realizovana" }
                 });
 
             migrationBuilder.CreateIndex(

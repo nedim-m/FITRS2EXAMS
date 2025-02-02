@@ -20,7 +20,7 @@ namespace exam.Model.Korisnik
 
         public string Telefon { get; set; } = null!;
 
-        public string? Addresa { get; set; }
+   
 
 
         public bool Status { get; set; }

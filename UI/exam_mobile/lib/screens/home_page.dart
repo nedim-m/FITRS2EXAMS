@@ -1,5 +1,8 @@
-import 'package:exam_mobile/screens/fitpasos_screen.dart';
+import 'package:exam_mobile/screens/fitpasos_screen_1.dart';
+import 'package:exam_mobile/screens/fitpasos_screen_2.dart';
 import 'package:exam_mobile/screens/login_page.dart';
+import 'package:exam_mobile/screens/mood_tracker_screen.dart';
+import 'package:exam_mobile/screens/todo_screen.dart';
 import 'package:exam_mobile/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -19,18 +22,32 @@ class _HomePageState extends State<HomePage> {
       ),
       body: const Padding(
         padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomButton(
-              text: 'FIT PASOS ',
-              navigateTo: FitPasosScreen(),
-            ),
-            CustomButton(
-              text: 'Logout',
-              navigateTo: LoginPage(),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                text: 'Fit Pasos PRVI ',
+                navigateTo: FitPasosScreen(),
+              ),
+              CustomButton(
+                text: 'Fit Pasos DRUGI ',
+                navigateTo: FitPasosScreenII(),
+              ),
+              CustomButton(
+                text: 'ToDo4924',
+                navigateTo: TodoScreen(),
+              ),
+              CustomButton(
+                text: 'MoodTracker',
+                navigateTo: MoodTrackerScreen(),
+              ),
+              CustomButton(
+                text: 'Logout',
+                navigateTo: LoginPage(),
+              ),
+            ],
+          ),
         ),
       ),
     );

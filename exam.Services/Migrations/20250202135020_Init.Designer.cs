@@ -12,7 +12,7 @@ using exam.Services.Database;
 namespace exam.Services.Migrations
 {
     [DbContext(typeof(ExamContext))]
-    [Migration("20250201202104_Init")]
+    [Migration("20250202135020_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -47,6 +47,29 @@ namespace exam.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("FITPasos");
+
+                    b.HasData(
+                        new
+                        {
+                            FITPasosId = 1,
+                            Aktivan = true,
+                            DatumVazenja = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 5
+                        },
+                        new
+                        {
+                            FITPasosId = 2,
+                            Aktivan = false,
+                            DatumVazenja = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 6
+                        },
+                        new
+                        {
+                            FITPasosId = 3,
+                            Aktivan = true,
+                            DatumVazenja = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 7
+                        });
                 });
 
             modelBuilder.Entity("exam.Services.Database.Korisnik", b =>
@@ -130,6 +153,78 @@ namespace exam.Services.Migrations
                             Prezime = "Korisnik",
                             Telefon = "061222333",
                             UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 4,
+                            Email = "marko.markovic@example.com",
+                            Ime = "Marko",
+                            KorisnickoIme = "marko",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Marković",
+                            Telefon = "061111111",
+                            UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 5,
+                            Email = "ivana.ivankovic@example.com",
+                            Ime = "Ivana",
+                            KorisnickoIme = "ivana",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Ivanković",
+                            Telefon = "062222222",
+                            UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 6,
+                            Email = "petar.petrovic@example.com",
+                            Ime = "Petar",
+                            KorisnickoIme = "petar",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Petrović",
+                            Telefon = "063333333",
+                            UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 7,
+                            Email = "ana.anic@example.com",
+                            Ime = "Ana",
+                            KorisnickoIme = "ana",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Anić",
+                            Telefon = "064444444",
+                            UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 8,
+                            Email = "nikola.nikolic@example.com",
+                            Ime = "Nikola",
+                            KorisnickoIme = "nikola",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Nikolić",
+                            Telefon = "065555555",
+                            UlogaId = 3
+                        },
+                        new
+                        {
+                            KorisnikId = 9,
+                            Email = "jelena.jelenkovic@example.com",
+                            Ime = "Jelena",
+                            KorisnickoIme = "jelena",
+                            PasswordHash = "C5fuEDcAxNxDuUXqOJCU9DYfLpM=",
+                            PasswordSalt = "qQ0nSvQ4rOy3pP/Zi95wIw==",
+                            Prezime = "Jelenković",
+                            Telefon = "066666666",
+                            UlogaId = 3
                         });
                 });
 
@@ -160,6 +255,32 @@ namespace exam.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("MoodTrackers");
+
+                    b.HasData(
+                        new
+                        {
+                            MoodTrackerId = 1,
+                            DatumEvidencije = new DateTime(2025, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 7,
+                            OpisRaspolozenja = "Mnogo sretan",
+                            VrijednostRaspolozenja = "Sretan"
+                        },
+                        new
+                        {
+                            MoodTrackerId = 2,
+                            DatumEvidencije = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 9,
+                            OpisRaspolozenja = "Mnogo tuzan",
+                            VrijednostRaspolozenja = "Tuzan"
+                        },
+                        new
+                        {
+                            MoodTrackerId = 3,
+                            DatumEvidencije = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 5,
+                            OpisRaspolozenja = "Pod velikim stresom",
+                            VrijednostRaspolozenja = "Pod_Stresom"
+                        });
                 });
 
             modelBuilder.Entity("exam.Services.Database.ToDo4924", b =>
@@ -191,6 +312,35 @@ namespace exam.Services.Migrations
                     b.HasIndex("KorisnikId");
 
                     b.ToTable("ToDo4924s");
+
+                    b.HasData(
+                        new
+                        {
+                            ToDo4924Id = 1,
+                            KorisnikId = 4,
+                            KrajnjiRok = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NazivAktivnosti = "Neka aktivnost",
+                            OpisAktivnosti = "Opis neke aktivnosti",
+                            StatusAktivnosti = "U_Toku"
+                        },
+                        new
+                        {
+                            ToDo4924Id = 2,
+                            KorisnikId = 5,
+                            KrajnjiRok = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NazivAktivnosti = "Neka aktivnost dva",
+                            OpisAktivnosti = "Opis neke aktivnosti dva",
+                            StatusAktivnosti = "Istekla"
+                        },
+                        new
+                        {
+                            ToDo4924Id = 3,
+                            KorisnikId = 6,
+                            KrajnjiRok = new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NazivAktivnosti = "Neka aktivnost tri",
+                            OpisAktivnosti = "Opis neke aktivnosti tri",
+                            StatusAktivnosti = "Realizovana"
+                        });
                 });
 
             modelBuilder.Entity("exam.Services.Database.Uloga", b =>

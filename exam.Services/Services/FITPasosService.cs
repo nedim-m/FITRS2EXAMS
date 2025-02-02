@@ -25,31 +25,7 @@ namespace exam.Services.Services
 
         public override IQueryable<Database.FITPasos> AddFilter(IQueryable<Database.FITPasos> query, FITPasosSearchRequest? search = null)
         {
-            /* za pasos sa dva datuma
- 
- 
-            if (search?.FirstNameLastName != null)
-            {
-                query = query.Where(x => x.User.FirstName.Contains(search.FirstNameLastName) || x.User.LastName.Contains(search.FirstNameLastName));
-            }
-
-            if (search?.DateFrom != null && search?.DateTo != null)
-            {
-                query = query.Where(x => x.IssueDate >= search.DateFrom.Value.Date && x.IssueDate.Date <= search.DateTo.Value.Date);
-            }
-            else if (search?.DateFrom != null)
-            {
-                query = query.Where(x => x.IssueDate.Date >= search.DateFrom.Value.Date);
-            }
-            else if (search?.DateTo != null)
-            {
-                query = query.Where(x => x.IssueDate.Date <= search.DateTo.Value.Date);
-            }
-
-
- 
- 
- */
+   
 
 
 
@@ -62,6 +38,22 @@ namespace exam.Services.Services
             {
                 query=query.Where(x => x.DatumVazenja.Date==search.Datum.Value.Date);
             }
+
+
+            if (search?.DatumOd != null && search?.DatumDo != null)
+            {
+                query = query.Where(x => x.DatumVazenja >= search.DatumOd.Value.Date && x.DatumVazenja.Date <= search.DatumDo.Value.Date);
+            }
+            else if (search?.DatumOd != null)
+            {
+                query = query.Where(x => x.DatumVazenja.Date >= search.DatumOd.Value.Date);
+            }
+            else if (search?.DatumDo != null)
+            {
+                query = query.Where(x => x.DatumVazenja.Date <= search.DatumDo.Value.Date);
+            }
+
+
 
             return base.AddFilter(query, search);
         }

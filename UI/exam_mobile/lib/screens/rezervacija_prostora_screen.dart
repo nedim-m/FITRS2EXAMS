@@ -1,30 +1,35 @@
 import 'package:exam_mobile/models/korisnik.dart';
-import 'package:exam_mobile/models/mood_tracker.dart';
-import 'package:exam_mobile/models/mood_tracker_stats.dart';
+import 'package:exam_mobile/models/radni_prostor.dart';
+import 'package:exam_mobile/models/rezervacija_prostora.dart';
+import 'package:exam_mobile/models/rezervacija_prostora_stats.dart';
 import 'package:exam_mobile/providers/korisnik_provider.dart';
-import 'package:exam_mobile/providers/mood_tracker_provider.dart';
-import 'package:exam_mobile/screens/dodaj_mood_tracker_screen.dart';
+import 'package:exam_mobile/providers/radni_prostor_provider.dart';
+import 'package:exam_mobile/providers/rezervacija_prostora_provider.dart';
+
+import 'package:exam_mobile/screens/dodaj_rezervaciju_prostora_screen.dart';
 import 'package:exam_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 
-class MoodTrackerScreen extends StatefulWidget {
-  const MoodTrackerScreen({super.key});
-  static const String routeName = "/moodtracker";
+class RezervacijaProstoraScreen extends StatefulWidget {
+  const RezervacijaProstoraScreen({super.key});
 
   @override
-  State<MoodTrackerScreen> createState() => _MoodTrackerScreenState();
+  State<RezervacijaProstoraScreen> createState() =>
+      _RezervacijaProstoraScreenState();
 }
 
-class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
-  List<MoodTracker> _filteredData = [];
+class _RezervacijaProstoraScreenState extends State<RezervacijaProstoraScreen> {
+  List<RezervacijaProstora> _filteredData = [];
   List<Korisnik> _users = [];
-  List<MoodTrackerStats> _moodTrackerStats = [];
-  final MoodTrackerProvider _moodTrackerProvider = MoodTrackerProvider();
+  List<RadniProstor> _radniProstor = [];
+  List<RezervacijaProstoraStats> _rezervacijaProstoraStats = [];
+  final RezervacijaProstoraProvider _rezervacijaProstoraProvider =
+      RezervacijaProstoraProvider();
+  final RadniProstorProvider _radniProstorProvider = RadniProstorProvider();
   final KorisnikProvider _korisnikProvider = KorisnikProvider();
   Korisnik? _selectedUser;
+  RadniProstor? _selectedRadniProstor;
   int? _status;
-
-  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -34,16 +39,19 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
 
   Future<void> fetchData() async {
     try {
-      final response = await _moodTrackerProvider.get();
+      final response = await _rezervacijaProstoraProvider.get();
       final responseUser = await _korisnikProvider.get();
-      final responseMoodTracker = await _moodTrackerProvider.getMoodStats();
+      final responseRadniProstor = await _radniProstorProvider.get();
+      final responseRezervacijaStats =
+          await _rezervacijaProstoraProvider.getRezevacijaStats();
 
-      print(responseMoodTracker);
+      print(responseRezervacijaStats);
 
       setState(() {
         _filteredData = response.result;
         _users = responseUser.result;
-        _moodTrackerStats = responseMoodTracker;
+        _rezervacijaProstoraStats = responseRezervacijaStats;
+        _radniProstor = responseRadniProstor.result;
       });
     } catch (e) {
       print('Error fetching data: $e');
@@ -53,10 +61,10 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
 
   Future<void> filterData() async {
     try {
-      final response = await _moodTrackerProvider.get(filter: {
+      final response = await _rezervacijaProstoraProvider.get(filter: {
         'KorisnikId': _selectedUser?.korisnikId,
-        'PretragaDatum': _selectedDate,
-        'PretragaVrijednostRaspolozenja': _status
+        'RadniProstorId': _selectedRadniProstor?.radniProstorId,
+        'PretragaStatusRezervacije': _status
       });
 
       setState(() {
@@ -74,7 +82,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
-          "Mood tracker",
+          "Rezervacija Prostora",
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -99,7 +107,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const DodajMoodTrackerScreen()),
+                                    const DodajRezervacijuProstoraScreen()),
                           );
 
                           if (result == true) {
@@ -108,7 +116,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                             });
                           }
                         },
-                        child: const Icon(Icons.add),
+                        child: const Text('Rezervisi'),
                       ),
                     ],
                   ),
@@ -132,6 +140,25 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                         labelText: "Odaberi korisnika"),
                   ),
                   const SizedBox(height: 20),
+                  DropdownButtonFormField<RadniProstor>(
+                    value: _radniProstor.contains(_selectedRadniProstor)
+                        ? _selectedRadniProstor
+                        : null,
+                    onChanged: (RadniProstor? radniProstor) {
+                      setState(() {
+                        _selectedRadniProstor = radniProstor;
+                      });
+                    },
+                    items: _radniProstor.map((RadniProstor radniProstor) {
+                      return DropdownMenuItem(
+                        value: radniProstor,
+                        child: Text(radniProstor.oznaka),
+                      );
+                    }).toList(),
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Odaberi radni prostor"),
+                  ),
                   const SizedBox(height: 20),
                   DropdownButtonFormField<int>(
                     value: _status,
@@ -143,50 +170,23 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                     items: const [
                       DropdownMenuItem<int>(
                         value: 0,
-                        child: Text('Sretan/a'),
+                        child: Text('Potvrdjena'),
                       ),
                       DropdownMenuItem<int>(
                         value: 1,
-                        child: Text('Tuzan/a'),
+                        child: Text('Na cekanju'),
                       ),
                       DropdownMenuItem<int>(
                         value: 2,
-                        child: Text('Uzbudjen/a'),
-                      ),
-                      DropdownMenuItem<int>(
-                        value: 3,
-                        child: Text('Umoran/a'),
-                      ),
-                      DropdownMenuItem<int>(
-                        value: 4,
-                        child: Text('Pod stresom'),
+                        child: Text('Otkazana'),
                       ),
                     ],
                     decoration: const InputDecoration(
-                      labelText: 'Status',
+                      labelText: 'Status rezervacije',
                       border: OutlineInputBorder(),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final selectedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                      );
-                      setState(() {
-                        _selectedDate = selectedDate;
-                      });
-                    },
-                    child: Text(
-                      _selectedDate != null
-                          ? 'Odabrani datum: ${formatDate(_selectedDate!)}'
-                          : 'Odaberi datum',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {
                       filterData();
@@ -202,20 +202,24 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                 columns: const [
                   DataColumn(label: Text('Ime')),
                   DataColumn(label: Text('Prezime')),
-                  DataColumn(label: Text('Raspolozenje')),
-                  DataColumn(label: Text('Opis')),
-                  DataColumn(label: Text('Datum')),
+                  DataColumn(label: Text('Naziv prostora')),
+                  DataColumn(label: Text('Kapacitet')),
+                  DataColumn(label: Text('Datum i vrijeme')),
+                  DataColumn(label: Text('Trajanje')),
+                  DataColumn(label: Text('Status')),
                 ],
                 rows: _filteredData.map((item) {
                   return DataRow(cells: [
                     DataCell(Text(item.ime ?? '')),
                     DataCell(Text(item.prezime ?? '')),
+                    DataCell(Text(item.oznaka ?? '')),
+                    DataCell(Text(item.kapacitet.toString())),
+                    DataCell(Text(formatDateWithTime(
+                        item.datumIVrijemePocetkaRezervacije))),
+                    DataCell(Text(item.trajanje.toString())),
                     DataCell(
-                      Text((item.vrijednostRaspolozenja ?? '')
-                          .replaceAll('_', ' ')),
+                      Text((item.statusRezervacije ?? '').replaceAll('_', ' ')),
                     ),
-                    DataCell(Text(item.opisRaspolozenja ?? '')),
-                    DataCell(Text(formatDate(item.datumEvidencije))),
                   ]);
                 }).toList(),
               ),
@@ -226,16 +230,16 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Statistika raspoloženja:",
+                    "Statistika rezervacija:",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  ..._moodTrackerStats.map((stat) {
+                  ..._rezervacijaProstoraStats.map((stat) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          stat.vrijednostRaspolozenja!.replaceAll('_', ' '),
+                          stat.statusRezervacije!.replaceAll('_', ' '),
                         ),
                         Text(
                           stat.brojPojavljivanja.toString(),

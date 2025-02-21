@@ -1,6 +1,8 @@
 import 'package:exam_mobile/providers/fitpasos_provider.dart';
 import 'package:exam_mobile/providers/korisnik_provider.dart';
 import 'package:exam_mobile/providers/mood_tracker_provider.dart';
+import 'package:exam_mobile/providers/radni_prostor_provider.dart';
+import 'package:exam_mobile/providers/rezervacija_prostora_provider.dart';
 import 'package:exam_mobile/providers/todo_provider.dart';
 import 'package:exam_mobile/screens/login_page.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => FitpasosProvider()),
         ChangeNotifierProvider(create: (_) => TodoProvider()),
         ChangeNotifierProvider(create: (_) => MoodTrackerProvider()),
+        ChangeNotifierProvider(create: (_) => RadniProstorProvider()),
+        ChangeNotifierProvider(create: (_) => RezervacijaProstoraProvider()),
       ],
       child: const MyApp(),
     ),

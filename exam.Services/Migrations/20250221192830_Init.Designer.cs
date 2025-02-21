@@ -12,7 +12,7 @@ using exam.Services.Database;
 namespace exam.Services.Migrations
 {
     [DbContext(typeof(ExamContext))]
-    [Migration("20250202135020_Init")]
+    [Migration("20250221192830_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -283,6 +283,131 @@ namespace exam.Services.Migrations
                         });
                 });
 
+            modelBuilder.Entity("exam.Services.Database.RadniProstor", b =>
+                {
+                    b.Property<int>("RadniProstorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RadniProstorId"));
+
+                    b.Property<bool>("Aktivna")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Kapacitet")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Oznaka")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RadniProstorId");
+
+                    b.ToTable("RadniProstors");
+
+                    b.HasData(
+                        new
+                        {
+                            RadniProstorId = 1,
+                            Aktivna = true,
+                            Kapacitet = 35,
+                            Oznaka = "Prostor 1"
+                        },
+                        new
+                        {
+                            RadniProstorId = 2,
+                            Aktivna = true,
+                            Kapacitet = 25,
+                            Oznaka = "Prostor 2"
+                        },
+                        new
+                        {
+                            RadniProstorId = 3,
+                            Aktivna = false,
+                            Kapacitet = 18,
+                            Oznaka = "Prostor 3"
+                        });
+                });
+
+            modelBuilder.Entity("exam.Services.Database.RezervacijaProstora20022025", b =>
+                {
+                    b.Property<int>("RezervacijaProstora20022025Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RezervacijaProstora20022025Id"));
+
+                    b.Property<DateTime>("DatumIVrijemePocetkaRezervacije")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Napomena")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RadniProstorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusRezervacije")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Trajanje")
+                        .HasColumnType("int");
+
+                    b.HasKey("RezervacijaProstora20022025Id");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.HasIndex("RadniProstorId");
+
+                    b.ToTable("RezervacijaProstora20022025s");
+
+                    b.HasData(
+                        new
+                        {
+                            RezervacijaProstora20022025Id = 1,
+                            DatumIVrijemePocetkaRezervacije = new DateTime(2025, 1, 15, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 6,
+                            Napomena = "Ovo je neka napomena",
+                            RadniProstorId = 1,
+                            StatusRezervacije = "Potvrdjena",
+                            Trajanje = 3
+                        },
+                        new
+                        {
+                            RezervacijaProstora20022025Id = 2,
+                            DatumIVrijemePocetkaRezervacije = new DateTime(2025, 2, 10, 9, 15, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 3,
+                            Napomena = "Rezervacija za sastanak",
+                            RadniProstorId = 2,
+                            StatusRezervacije = "Na_cekanju",
+                            Trajanje = 2
+                        },
+                        new
+                        {
+                            RezervacijaProstora20022025Id = 3,
+                            DatumIVrijemePocetkaRezervacije = new DateTime(2025, 3, 5, 16, 45, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 8,
+                            Napomena = "Rad na projektu",
+                            RadniProstorId = 3,
+                            StatusRezervacije = "Potvrdjena",
+                            Trajanje = 4
+                        },
+                        new
+                        {
+                            RezervacijaProstora20022025Id = 4,
+                            DatumIVrijemePocetkaRezervacije = new DateTime(2025, 4, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            KorisnikId = 5,
+                            Napomena = "Prezentacija klijentu",
+                            RadniProstorId = 1,
+                            StatusRezervacije = "Otkazana",
+                            Trajanje = 1
+                        });
+                });
+
             modelBuilder.Entity("exam.Services.Database.ToDo4924", b =>
                 {
                     b.Property<int>("ToDo4924Id")
@@ -415,6 +540,25 @@ namespace exam.Services.Migrations
                         .IsRequired();
 
                     b.Navigation("Korisnik");
+                });
+
+            modelBuilder.Entity("exam.Services.Database.RezervacijaProstora20022025", b =>
+                {
+                    b.HasOne("exam.Services.Database.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("exam.Services.Database.RadniProstor", "RadniProstor")
+                        .WithMany()
+                        .HasForeignKey("RadniProstorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Korisnik");
+
+                    b.Navigation("RadniProstor");
                 });
 
             modelBuilder.Entity("exam.Services.Database.ToDo4924", b =>

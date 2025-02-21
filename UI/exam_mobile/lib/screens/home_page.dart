@@ -2,6 +2,7 @@ import 'package:exam_mobile/screens/fitpasos_screen_1.dart';
 import 'package:exam_mobile/screens/fitpasos_screen_2.dart';
 import 'package:exam_mobile/screens/login_page.dart';
 import 'package:exam_mobile/screens/mood_tracker_screen.dart';
+import 'package:exam_mobile/screens/rezervacija_prostora_screen.dart';
 import 'package:exam_mobile/screens/todo_screen.dart';
 import 'package:exam_mobile/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,10 @@ class _HomePageState extends State<HomePage> {
               CustomButton(
                 text: 'MoodTracker',
                 navigateTo: MoodTrackerScreen(),
+              ),
+              CustomButton(
+                text: 'RezervacijaProstora20022025',
+                navigateTo: RezervacijaProstoraScreen(),
               ),
               CustomButton(
                 text: 'Logout',

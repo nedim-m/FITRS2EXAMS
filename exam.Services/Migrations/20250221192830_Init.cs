@@ -14,6 +14,21 @@ namespace exam.Services.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "RadniProstors",
+                columns: table => new
+                {
+                    RadniProstorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Oznaka = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aktivna = table.Column<bool>(type: "bit", nullable: false),
+                    Kapacitet = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RadniProstors", x => x.RadniProstorId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ulogas",
                 columns: table => new
                 {
@@ -97,6 +112,36 @@ namespace exam.Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RezervacijaProstora20022025s",
+                columns: table => new
+                {
+                    RezervacijaProstora20022025Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DatumIVrijemePocetkaRezervacije = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Trajanje = table.Column<int>(type: "int", nullable: false),
+                    StatusRezervacije = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Napomena = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KorisnikId = table.Column<int>(type: "int", nullable: false),
+                    RadniProstorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RezervacijaProstora20022025s", x => x.RezervacijaProstora20022025Id);
+                    table.ForeignKey(
+                        name: "FK_RezervacijaProstora20022025s_Korisniks_KorisnikId",
+                        column: x => x.KorisnikId,
+                        principalTable: "Korisniks",
+                        principalColumn: "KorisnikId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RezervacijaProstora20022025s_RadniProstors_RadniProstorId",
+                        column: x => x.RadniProstorId,
+                        principalTable: "RadniProstors",
+                        principalColumn: "RadniProstorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ToDo4924s",
                 columns: table => new
                 {
@@ -117,6 +162,16 @@ namespace exam.Services.Migrations
                         principalTable: "Korisniks",
                         principalColumn: "KorisnikId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "RadniProstors",
+                columns: new[] { "RadniProstorId", "Aktivna", "Kapacitet", "Oznaka" },
+                values: new object[,]
+                {
+                    { 1, true, 35, "Prostor 1" },
+                    { 2, true, 25, "Prostor 2" },
+                    { 3, false, 18, "Prostor 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -166,6 +221,17 @@ namespace exam.Services.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "RezervacijaProstora20022025s",
+                columns: new[] { "RezervacijaProstora20022025Id", "DatumIVrijemePocetkaRezervacije", "KorisnikId", "Napomena", "RadniProstorId", "StatusRezervacije", "Trajanje" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 1, 15, 14, 30, 0, 0, DateTimeKind.Unspecified), 6, "Ovo je neka napomena", 1, "Potvrdjena", 3 },
+                    { 2, new DateTime(2025, 2, 10, 9, 15, 0, 0, DateTimeKind.Unspecified), 3, "Rezervacija za sastanak", 2, "Na_cekanju", 2 },
+                    { 3, new DateTime(2025, 3, 5, 16, 45, 0, 0, DateTimeKind.Unspecified), 8, "Rad na projektu", 3, "Potvrdjena", 4 },
+                    { 4, new DateTime(2025, 4, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), 5, "Prezentacija klijentu", 1, "Otkazana", 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "ToDo4924s",
                 columns: new[] { "ToDo4924Id", "KorisnikId", "KrajnjiRok", "NazivAktivnosti", "OpisAktivnosti", "StatusAktivnosti" },
                 values: new object[,]
@@ -191,6 +257,16 @@ namespace exam.Services.Migrations
                 column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RezervacijaProstora20022025s_KorisnikId",
+                table: "RezervacijaProstora20022025s",
+                column: "KorisnikId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RezervacijaProstora20022025s_RadniProstorId",
+                table: "RezervacijaProstora20022025s",
+                column: "RadniProstorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ToDo4924s_KorisnikId",
                 table: "ToDo4924s",
                 column: "KorisnikId");
@@ -206,7 +282,13 @@ namespace exam.Services.Migrations
                 name: "MoodTrackers");
 
             migrationBuilder.DropTable(
+                name: "RezervacijaProstora20022025s");
+
+            migrationBuilder.DropTable(
                 name: "ToDo4924s");
+
+            migrationBuilder.DropTable(
+                name: "RadniProstors");
 
             migrationBuilder.DropTable(
                 name: "Korisniks");

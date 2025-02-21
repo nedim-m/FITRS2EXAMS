@@ -8,3 +8,5 @@ class Authorization {
 }
 
 String formatDate(DateTime date) => DateFormat("dd/MM/yyyy").format(date);
+String formatDateWithTime(DateTime date) => DateFormat("dd/MM/yyyy HH:mm").format(date);
+

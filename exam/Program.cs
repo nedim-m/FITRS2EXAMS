@@ -35,6 +35,8 @@ builder.Services.AddTransient<IKorisnikService, KorisnikService>();
 builder.Services.AddTransient<IFITPasosService, FITPasosService>();
 builder.Services.AddTransient<IToDo4924Service, ToDo4924Service>();
 builder.Services.AddTransient<IMoodTrackerService, MoodTrackerService>();
+builder.Services.AddTransient<IRadniProstorService, RadniProstorService>();
+builder.Services.AddTransient<IRezervacijaProstora20022025Service, RezervacijaProstora20022025Service>();
 
 builder.Services.AddAutoMapper(typeof(KorisnikService));
 

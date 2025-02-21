@@ -30,5 +30,12 @@ namespace exam.Model.Status
 		Pod_Stresom
 
     }
+
+	public enum StatusRezervacije
+	{ 
+		Potvrdjena,
+		Na_cekanju,
+		Otkazana
+	}
 }
 

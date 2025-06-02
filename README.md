@@ -2,7 +2,7 @@
 
 
 ### Prijava korisnika
-- **Svi korisnici(`admin`,`uposlenik`,`korisnik`) imaju zadani password**: `test`.
+- **Svi korisnici---> username: `admin`,`uposlenik`,`korisnik` imaju zadani password**: `test`.
 - **Svi korisnici se mogu prijaviti koristeći svoje korisničko ime (username)**.
 
 ### Pokretanje aplikacije
